@@ -1,25 +1,31 @@
-import openai
-import gradio as gr 
+import os
 
-openai.api_key = "sk-xxxx"
+import gradio as gr
+import openai
+from dotenv import find_dotenv, load_dotenv
+
+load_dotenv(find_dotenv())
+
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', None)
+openai.api_key = OPENAI_API_KEY
 
 start_sequence = "\AI:"
 restart_sequence = "\Human:"
 
 prompt = " "
 
+
 def generate_response(prompt):
-    completion = openai.Completion.create(
-           model = "text-davinci-003",
-           prompt = prompt,
-           temperature = 0,
-           max_tokens= 500, 
-           top_p=1,
-           frequency_penalty=0, 
-           presence_penalty=0, 
-           stop=[" Human:", " AI:"]
-       ) 
+    completion = openai.Completion.create(model="text-davinci-003",
+                                          prompt=prompt,
+                                          temperature=0,
+                                          max_tokens=500,
+                                          top_p=1,
+                                          frequency_penalty=0,
+                                          presence_penalty=0,
+                                          stop=[" Human:", " AI:"])
     return completion.choices[0].text
+
 
 def my_chatbot(input, history):
     history = history or []
@@ -28,14 +34,16 @@ def my_chatbot(input, history):
     my_input = ' '.join(my_history)
     output = generate_response(my_input)
     history.append((input, output))
-    return history, history 
+    return history, history
+
 
 with gr.Blocks() as demo:
     gr.Markdown("""<h1><center>Testing Chatbot</center></h1>""")
     chatbot = gr.Chatbot()
     state = gr.State()
-    txt = gr.Textbox(show_label=False, placeholder="Ask me a question and press enter.").style(container=False)
+    txt = gr.Textbox(show_label=False,
+                     placeholder="Ask me a question and press enter.").style(
+                         container=False)
     txt.submit(my_chatbot, inputs=[txt, state], outputs=[chatbot, state])
-    
-demo.launch(share = True)
 
+demo.launch(share=True)
