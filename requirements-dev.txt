@@ -1,0 +1,5 @@
+chromadb==0.4.7
+html2text==2020.1.16
+llama-index==0.8.9
+nltk==3.8.1
+python-dotenv==1.0.0

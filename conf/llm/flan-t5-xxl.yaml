@@ -1,0 +1,5 @@
+_target_: langchain.HuggingFaceHub
+repo_id: "google/flan-t5-xxl"
+model_kwargs:
+  temperature: 0.1
+  max_length: 256

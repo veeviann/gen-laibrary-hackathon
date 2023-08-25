@@ -1,0 +1,2 @@
+_target_: langchain.embeddings.huggingface.HuggingFaceEmbeddings
+model_name: "sentence-transformers/all-mpnet-base-v2"
