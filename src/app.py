@@ -14,12 +14,11 @@ from langchain.schema import AgentAction, AgentFinish
 from typing import List, Tuple, Union
 import gradio as gr
 
-
 def pretty_print_docs(docs):
     print(f"\n{'-' * 100}\n".join(
         [f"Document {i+1}:\n\n" + d.page_content for i, d in enumerate(docs)]))
-
-
+    
+    
 load_dotenv(find_dotenv())
 
 COLLECTION_NAME = "LibraryFAQ"
@@ -73,7 +72,7 @@ def general_faq_agent(cfg: DictConfig) -> None:
                              agent_kwargs=agent_kwargs,
                              memory=memory)
 
-    def my_chatbot(input, history, agent=agent):
+    def my_chatbot(input, history):
         history = history or []
         my_history = list(sum(history, ()))
         my_history.append(input)
