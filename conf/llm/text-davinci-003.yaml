@@ -1,0 +1,4 @@
+_target_: langchain.llms.openai.OpenAI
+model_name: "text-davinci-003"
+temperature: 0.1
+max_tokens: 1000
