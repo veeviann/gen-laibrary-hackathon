@@ -1,6 +1,6 @@
 defaults:
   - _self_
-  - embeddings: all-mpnet-base-v2
+  - embeddings: openai
   - llm: text-davinci-003
   - vectorstore: default
   - override hydra/hydra_logging: disabled
